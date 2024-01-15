@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw7n0cn7ekrb1"]
+
+[ext_resource type="Script" path="res://analog_input_viewer.gd" id="1_li6lt"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_v268m"]
+lightmap_size_hint = Vector2i(17, 9)
+
+[node name="AnalogInputViewer" type="Node2D"]
+script = ExtResource("1_li6lt")
+metadata/_edit_group_ = true
+
+[node name="back" type="MeshInstance2D" parent="."]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(72.0865, 72.0225)
+mesh = SubResource("SphereMesh_v268m")
+
+[node name="AnalogPosition" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 0, 1, 1)
+position = Vector2(2.38419e-07, 0.00171113)
+scale = Vector2(10.0113, 10.0034)
+mesh = SubResource("SphereMesh_v268m")
