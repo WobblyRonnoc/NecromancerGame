@@ -40,7 +40,6 @@ shape = SubResource("CircleShape2D_ifimd")
 
 [node name="SpellPoint0" parent="." instance=ExtResource("2_xgq5y")]
 position = Vector2(2.08616e-07, 0)
-scale = Vector2(11.77, 11.77)
 key_value = 0
 
 [node name="SpellPoint1" parent="." instance=ExtResource("2_xgq5y")]

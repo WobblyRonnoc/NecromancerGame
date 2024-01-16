@@ -2,6 +2,7 @@ extends Node2D
 
 enum side {right, left}
 @export var stick: side
+@onready var debug_panel = $"../DebugPanel"
 
 const id_values : Dictionary = {"up": 1, "right": 2, "down": 3, "left": 4}
 
@@ -42,9 +43,11 @@ func _process(delta):
 func returned_to_center(side):
 	if side == 0:
 		print("Left Spell: ", Global.left_spell_key)
+		debug_panel.add_debug_label("Left Spell Key: ", str(Global.left_spell_key))
 		Global.left_spell_key.clear()
 	else:
 		print("Right Spell: ", Global.right_spell_key)
+		debug_panel.add_debug_label("Right Spell Key: ", str(Global.right_spell_key))
 		Global.right_spell_key.clear()
 		
 	for child in get_children():
