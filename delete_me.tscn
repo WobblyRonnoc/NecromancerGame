@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5bqwggeqx27k"]
+
+[ext_resource type="Script" path="res://delete me.gd" id="1_h486w"]
+[ext_resource type="PackedScene" uid="uid://bwymmn4gumgb1" path="res://debug_panel.tscn" id="2_sq6kf"]
+
+[node name="delete me" type="Node2D"]
+script = ExtResource("1_h486w")
+
+[node name="DebugPanel" parent="." instance=ExtResource("2_sq6kf")]

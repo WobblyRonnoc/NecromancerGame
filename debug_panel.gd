@@ -1,33 +1,52 @@
 extends Control
 
-@onready var label_container = %VBoxContainer
+@onready var property_container = %VBoxContainer
 var label
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	Global.debug = self
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("clear_debug_panel"):
-		clear_labels()
+		clear_properties()
 	if Input.is_action_pressed("toggle_debug_panel"):
 		visible = !visible
 
-func update_label(label: Label, value):
-	label.text = value
+
+func add_property_bar(title : String, value, order):
+	var target
+	target = property_container.find_child(title, true, false)
+	if !target:
+		target = ProgressBar.new()
+		target.max_value = 1
+		target.min_value = 0
+		property_container.add_child(target)
+		target.add_to_group("debug")
+		target.name = title
+	elif visible:
+		target.value = value
+		property_container.move_child(target, order)
 	
-# FIXME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-func add_debug_label(title : String, value):
-	label = Label.new()
-	for child in label_container.get_children():
-		if child.name == title:
-			update_label(child, child.text)
-	#label_container.add_child(label)
-	label.name = title
-	label.text = label.name + value
 	
-func clear_labels():
-	for child in label_container.get_children():
+
+func add_property(title : String, value, order):
+	var target
+	target = property_container.find_child(title, true, false)
+	if !target:
+		target = Label.new()
+		property_container.add_child(target)
+		target.add_to_group("debug")
+		target.name = title
+		target.text = target.name + ": " + str(value)
+	else: 
+		if visible:
+			target.text = title + ": " + str(value)
+			property_container.move_child(target, order)
+	
+	
+func clear_properties():
+	for child in property_container.get_children():
 		child.queue_free()

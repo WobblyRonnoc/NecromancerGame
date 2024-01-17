@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://4ri0jgqb2jxh"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_8ljpt"]
+[ext_resource type="PackedScene" uid="uid://dw7n0cn7ekrb1" path="res://analog_input_viewer.tscn" id="1_xqoen"]
+[ext_resource type="Script" path="res://DebugUI.gd" id="2_s38si"]
+[ext_resource type="PackedScene" uid="uid://bwymmn4gumgb1" path="res://debug_panel.tscn" id="4_h1nyo"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_8ljpt")
+
+[node name="AnalogInputViewer" parent="." instance=ExtResource("1_xqoen")]
+visible = false
+position = Vector2(320, 320)
+
+[node name="MarginContainer" type="MarginContainer" parent="AnalogInputViewer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -150.0
+offset_right = 83.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 6
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 135
+
+[node name="PanelContainer" type="PanelContainer" parent="AnalogInputViewer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnalogInputViewer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AnalogInputViewer/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="Label2" type="Label" parent="AnalogInputViewer/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="Label3" type="Label" parent="AnalogInputViewer/MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="AnalogInputViewer2" parent="." instance=ExtResource("1_xqoen")]
+position = Vector2(576, 320)
+stick = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="AnalogInputViewer2"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -150.0
+offset_right = 83.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 135
+
+[node name="PanelContainer" type="PanelContainer" parent="AnalogInputViewer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnalogInputViewer2/MarginContainer2/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AnalogInputViewer2/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="Label2" type="Label" parent="AnalogInputViewer2/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="Label3" type="Label" parent="AnalogInputViewer2/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "asdfasdf"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_s38si")
+
+[node name="DebugPanel" parent="." instance=ExtResource("4_h1nyo")]
+visible = false
+size_flags_horizontal = 0
+size_flags_vertical = 0
