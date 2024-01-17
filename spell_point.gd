@@ -21,8 +21,8 @@ func _on_area_2d_area_entered(area):
 			Global.left_spell_key.append(key_value)
 		if stick == 1:
 			Global.right_spell_key.append(key_value)
-	
 
 # add the selection value to the global key array
 func _on_area_2d_area_exited(area):
 	pass
+		
