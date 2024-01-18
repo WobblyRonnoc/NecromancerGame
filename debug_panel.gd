@@ -6,8 +6,11 @@ var label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Global.debug = self
-
+	if Global.debug == null:
+		Global.debug = self
+	else:
+		Global.debug2 = self
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("clear_debug_panel"):
@@ -44,7 +47,7 @@ func add_property(title : String, value, order):
 	else: 
 		if visible:
 			target.text = title + ": " + str(value)
-			property_container.move_child(target, order)
+			# TODO: add sorting logic to override existing indexes
 	
 	
 func clear_properties():

@@ -13,8 +13,8 @@ radius = 0.0732185
 radius = 0.509476
 
 [node name="AnalogInputViewer" type="Node2D"]
-modulate = Color(1, 1, 1, 0.294118)
-scale = Vector2(2, 2)
+modulate = Color(1, 1, 1, 0.47451)
+scale = Vector2(1.6, 1.6)
 script = ExtResource("1_li6lt")
 metadata/_edit_group_ = true
 

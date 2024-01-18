@@ -1,21 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://4ri0jgqb2jxh"]
+[gd_scene load_steps=3 format=3 uid="uid://4ri0jgqb2jxh"]
 
-[ext_resource type="PackedScene" uid="uid://dw7n0cn7ekrb1" path="res://analog_input_viewer.tscn" id="1_xqoen"]
 [ext_resource type="PackedScene" uid="uid://udrj4gpdrtl7" path="res://player.tscn" id="3_nmefv"]
 [ext_resource type="PackedScene" uid="uid://bwymmn4gumgb1" path="res://debug_panel.tscn" id="4_h1nyo"]
 
 [node name="Level" type="Node2D"]
 
-[node name="AnalogInputViewer" parent="." instance=ExtResource("1_xqoen")]
-position = Vector2(320, 256)
+[node name="Player" parent="." instance=ExtResource("3_nmefv")]
+position = Vector2(544, 528)
 
-[node name="AnalogInputViewer2" parent="." instance=ExtResource("1_xqoen")]
-position = Vector2(768, 256)
-stick = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="DebugPanel" parent="." instance=ExtResource("4_h1nyo")]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="DebugPanel" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("4_h1nyo")]
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Player" parent="." instance=ExtResource("3_nmefv")]
-position = Vector2(544, 528)
+[node name="DebugPanel2" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("4_h1nyo")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
