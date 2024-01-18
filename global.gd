@@ -14,11 +14,10 @@ var right_spell_key : Array = []
 
 const SPELL_LIST : Dictionary = {
 	"120" : "Fire Ball",
-	"1402": "Buff AoE",
-	"103" : "Rend Flesh"
-	
+	"1230": "Buff AoE",
+	"103" : "Rend Flesh",
+	"14023" : "Line AoE"
 	}
-
 
 func get_spell_key(stick):
 	if stick == 0:
@@ -37,3 +36,6 @@ func clear_spell_key(stick):
 		left_spell_key.clear()
 	if stick == 1:
 		right_spell_key.clear()
+func _process(_delta):
+	for item in SPELL_LIST:
+		debug2.add_property(item, SPELL_LIST[item], 0)
