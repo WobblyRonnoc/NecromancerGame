@@ -26,14 +26,14 @@ script = ExtResource("1_e8ulj")
 [node name="LeftHand" type="MeshInstance2D" parent="."]
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
 z_index = 1
-position = Vector2(-24, -32)
+position = Vector2(16, -32)
 scale = Vector2(7.5827, 7.35295)
 mesh = SubResource("CapsuleMesh_jspig")
 
 [node name="RightHand" type="MeshInstance2D" parent="."]
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
 z_index = 1
-position = Vector2(24, -32)
+position = Vector2(-16, -32)
 scale = Vector2(7.5827, 7.35295)
 mesh = SubResource("CapsuleMesh_jspig")
 
@@ -78,12 +78,12 @@ shape = SubResource("CircleShape2D_ea0qd")
 disabled = true
 
 [node name="AnalogInputViewer2" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(128, -128)
+position = Vector2(96, -64)
 scale = Vector2(1, 1)
 stick = 1
 
 [node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(-128, -128)
+position = Vector2(-96, -64)
 scale = Vector2(1, 1)
 
 [connection signal="area_entered" from="TerrorArea" to="." method="_on_terror_area_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dw7n0cn7ekrb1"]
 
-[ext_resource type="Script" path="res://analog_input_viewer.gd" id="1_li6lt"]
+[ext_resource type="Script" path="res://scripts/analog_input_viewer.gd" id="1_ihuqa"]
 [ext_resource type="PackedScene" uid="uid://bbyrp2n1shvyx" path="res://spell_point.tscn" id="2_xgq5y"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_v268m"]
@@ -22,10 +22,11 @@ colors = PackedColorArray(1, 0.478431, 0, 1, 1, 0.0334275, 0, 0.996352, 1, 0, 0,
 
 [node name="AnalogInputViewer" type="Node2D"]
 scale = Vector2(1.6, 1.6)
-script = ExtResource("1_li6lt")
+script = ExtResource("1_ihuqa")
 metadata/_edit_group_ = true
 
 [node name="back" type="MeshInstance2D" parent="."]
+visible = false
 modulate = Color(0, 0.105882, 0.172549, 0.0784314)
 position = Vector2(1.90735e-06, 0)
 scale = Vector2(109.262, 109.163)
@@ -37,6 +38,7 @@ mesh = SubResource("SphereMesh_v268m")
 shape = SubResource("CircleShape2D_hm38y")
 
 [node name="AnalogPosition" type="MeshInstance2D" parent="."]
+visible = false
 modulate = Color(1, 0, 0, 1)
 self_modulate = Color(1, 0, 1, 1)
 position = Vector2(2.38419e-07, 0.00171113)
@@ -49,28 +51,33 @@ mesh = SubResource("SphereMesh_v268m")
 shape = SubResource("CircleShape2D_ifimd")
 
 [node name="SpellPoint0" parent="." instance=ExtResource("2_xgq5y")]
-modulate = Color(1, 1, 1, 0.603922)
+modulate = Color(1, 1, 1, 0.270588)
 position = Vector2(2.08616e-07, 0)
+default_scale = 0.6
 
 [node name="SpellPoint1" parent="." instance=ExtResource("2_xgq5y")]
-modulate = Color(1, 1, 1, 0.603922)
+modulate = Color(1, 1, 1, 0.270588)
 position = Vector2(-1.57952e-06, -55)
 key_value = 1
+default_scale = 0.6
 
 [node name="SpellPoint2" parent="." instance=ExtResource("2_xgq5y")]
-modulate = Color(1, 1, 1, 0.603922)
+modulate = Color(1, 1, 1, 0.270588)
 position = Vector2(55, 2.20537e-06)
 key_value = 2
+default_scale = 0.6
 
 [node name="SpellPoint3" parent="." instance=ExtResource("2_xgq5y")]
-modulate = Color(1, 1, 1, 0.603922)
+modulate = Color(1, 1, 1, 0.270588)
 position = Vector2(0, 55)
 key_value = 3
+default_scale = 0.6
 
 [node name="SpellPoint4" parent="." instance=ExtResource("2_xgq5y")]
-modulate = Color(1, 1, 1, 0.603922)
+modulate = Color(1, 1, 1, 0.270588)
 position = Vector2(-55, -1.07289e-06)
 key_value = 4
+default_scale = 0.6
 
 [node name="Line" type="Line2D" parent="."]
 width = 5.0

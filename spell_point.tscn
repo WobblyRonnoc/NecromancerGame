@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbyrp2n1shvyx"]
 
-[ext_resource type="QuadMesh" uid="uid://cpc6tqb33w4lk" path="res://point.tres" id="1_o1ej6"]
-[ext_resource type="Script" path="res://spell_point.gd" id="2_aakqc"]
+[ext_resource type="Script" path="res://scripts/spell_point.gd" id="1_jogfb"]
+[ext_resource type="QuadMesh" uid="uid://cpc6tqb33w4lk" path="res://assets/point.tres" id="2_p3nq3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y32wo"]
 size = Vector2(15.0849, 15.0849)
 
 [node name="Area2D" type="Area2D" groups=["spell_point"]]
-script = ExtResource("2_aakqc")
+script = ExtResource("1_jogfb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.19209e-07, 0)
@@ -20,7 +20,7 @@ self_modulate = Color(1, 0, 1, 1)
 position = Vector2(0, 5.6624e-07)
 rotation = 0.785398
 scale = Vector2(11.77, 11.77)
-mesh = ExtResource("1_o1ej6")
+mesh = ExtResource("2_p3nq3")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="SpellPoint" method="_on_area_2d_area_exited"]

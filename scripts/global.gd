@@ -1,7 +1,10 @@
 extends Node
 
+var dev_mode = true 
+
+
 var debug
-var debug2
+var debug2 
 
 var l_analog_angle = 0.0
 var l_analog_position = Vector2.ZERO
@@ -17,7 +20,8 @@ const SPELL_LIST : Dictionary = {
 	"1230": "Buff AoE",
 	"103" : "Rend Flesh",
 	"14023" : "Line AoE",
-	"41230" : "Sheild"
+	"41230" : "Sheild",
+	"43210" : "Summon Undead"
 	}
 
 func get_spell_key(stick):
@@ -37,10 +41,22 @@ func clear_spell_key(stick):
 		left_spell_key.clear()
 	if stick == 1:
 		right_spell_key.clear()
+		
+func _ready():
+	pass
+
 func _process(_delta):
-	debug.add_property("Queued [LEFT] Spell ID", left_spell_key, 0)
-	#debug.add_property_bar("[LEFT]Trigger Strength", Input.get_action_strength("lt"), 1)
+	if Input.is_action_just_pressed("zoom_in"):
+		get_tree().get_current_scene().get_child(0).camera_zoom *= 1.05
+	if Input.is_action_just_pressed("zoom_out"):
+		get_tree().get_current_scene().get_child(0).camera_zoom *= 0.95
 	
-	debug.add_property("Queued [RIGHT] Spell ID", right_spell_key, 3)
-	#debug.add_property_bar("Right Trigger Strength", Input.get_action_strength("rt"), 4)
 	
+	
+	if get_tree().get_current_scene().scene_file_path == Scenes.LEVEL:
+		debug.add_property("Queued [LEFT] Spell ID", left_spell_key, 0)
+		#debug.add_property_bar("[LEFT]Trigger Strength", Input.get_action_strength("lt"), 1)
+		
+		debug.add_property("Queued [RIGHT] Spell ID", right_spell_key, 3)
+		#debug.add_property_bar("Right Trigger Strength", Input.get_action_strength("rt"), 4)
+		

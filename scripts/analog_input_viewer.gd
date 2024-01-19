@@ -13,53 +13,62 @@ var travelling = false
 @onready var back = $back
 @onready var analog_vector
 
-var trigger_pulled : bool = false
+@onready var reset_timer = $ResetTimer
 var has_cast : bool = false
 
-func trigger_depth():
+var is_casting : bool = false
+
+
+func is_trigger_pulled():
+	var amount
+	var trigger_pulled
+	# get stick to measure action strength of
 	if stick == 0:
-		return Input.get_action_strength("lt")
+		amount = Input.get_action_strength("lt") 
 	if stick == 1:
-		return Input.get_action_strength("rt")
-	
+		amount = Input.get_action_strength("rt")
+		
+	# measure and return true if it is pulled
+	if amount > 0.0:
+		trigger_pulled = true
+	elif amount < 1.0:
+		trigger_pulled = false
+		
+	return trigger_pulled
 
 func _ready():
 	for child in get_children():
 		if child.name.contains("SpellPoint"):
 			child.stick = stick # carry the side down to the points
-		
+
+
 func _process(delta):
 	if travelling && visible:
 		if line.get_point_count() > 2000:
-			line.clear_points()
-			
+			line.clear_points()	
 		line.add_point(analog.position)
-	
+		
 	if stick == 0:
 		analog_vector = Input.get_vector("ls_left","ls_right","ls_up","ls_down",-1.0)
 	else:
 		analog_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
 		
-	if trigger_depth() > 0.0:
-		trigger_pulled = true
-	elif trigger_depth() < 1.0:
-		trigger_pulled = false
-		
-	if trigger_pulled:
-		has_cast = false
-		show()
-	elif !has_cast:
-		cast(stick, Global.get_spell_key(stick))
-		
-			
-
 	# limit the input display's position to the radius 
 	analog.position = analog_vector * radius
 	analog.position.clamp(position, analog_vector * radius)
 	
-	
+	# check if casting
+	if is_trigger_pulled():
+		has_cast = false
+		is_casting = true
+		show()
+	elif !has_cast:
+		cast(stick, Global.get_spell_key(stick))
+
+
 func cast(stick, spell_id):
 	has_cast = true
+	is_casting = false
 	line.clear_points()
 	# format key for spell list query
 	var spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
@@ -79,8 +88,7 @@ func cast(stick, spell_id):
 	for child in get_children():
 		if child.name.contains("SpellPoint"):
 			child.selected = false
-	
-
+ 
 	if stick == 0:
 		Global.debug.add_property("[LEFT] Cast Spell ID", spell, 1)
 		Global.left_spell_key.clear()
@@ -90,7 +98,7 @@ func cast(stick, spell_id):
 		Global.right_spell_key.clear()
 		hide()
 		
-@onready var reset_timer = $ResetTimer
+
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("spell_point") && visible:

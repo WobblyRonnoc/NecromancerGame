@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://dt27tsl0sgw23"]
+
+[ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
+radius = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wrgaa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktp8o"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_un8cn"]
+radius = 904.0
+
+[node name="NPC" type="CharacterBody2D"]
+modulate = Color(0.462745, 1, 0.560784, 1)
+script = ExtResource("1_y22kf")
+safe_distance = 50.0
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
+modulate = Color(0.00392157, 0.00392157, 0.00392157, 0.254902)
+position = Vector2(-1.13687e-13, -4)
+scale = Vector2(24, 12)
+mesh = SubResource("CapsuleMesh_j6nl0")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(0, -36)
+scale = Vector2(28.5, 36)
+mesh = SubResource("CapsuleMesh_wrgaa")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+position = Vector2(0, -88)
+scale = Vector2(28.5, 16)
+mesh = SubResource("CapsuleMesh_wrgaa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ktp8o")
+
+[node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_un8cn")
+
+[connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]

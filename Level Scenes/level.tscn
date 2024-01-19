@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://4ri0jgqb2jxh"]
+
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_4o4p2"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_b2vc0"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_emy0f"]
+[ext_resource type="PackedScene" uid="uid://udrj4gpdrtl7" path="res://player.tscn" id="3_nmefv"]
+[ext_resource type="PackedScene" uid="uid://bwymmn4gumgb1" path="res://debug_panel.tscn" id="4_h1nyo"]
+[ext_resource type="PackedScene" uid="uid://cegqq87o21rd2" path="res://director.tscn" id="5_wupte"]
+[ext_resource type="PackedScene" uid="uid://dt27tsl0sgw23" path="res://npc.tscn" id="6_casvv"]
+
+[sub_resource type="Resource" id="Resource_6jk0a"]
+script = ExtResource("3_b2vc0")
+duration = 0.6
+transition = 5
+ease = 3
+
+[node name="Level" type="Node2D"]
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+position = Vector2(557, 315.009)
+script = ExtResource("3_emy0f")
+priority_override = false
+priority = 5
+zoom = Vector2(0.555, 0.555)
+follow_mode = 2
+follow_target = NodePath("../Director/Player")
+follow_parameters/target_offset = Vector2(0, -100)
+follow_parameters/damping = true
+follow_parameters/damping_value = 3.452
+frame_preview = true
+pixel_perfect = true
+limit/draw_limits = true
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = SubResource("Resource_6jk0a")
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(557, 315)
+zoom = Vector2(0.555, 0.555)
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("1_4o4p2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="DebugPanel" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("4_h1nyo")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="DebugPanel2" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource("4_h1nyo")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+
+[node name="Director" parent="." instance=ExtResource("5_wupte")]
+
+[node name="NPC" parent="Director" instance=ExtResource("6_casvv")]
+position = Vector2(256, 447)
+
+[node name="Player" parent="Director" instance=ExtResource("3_nmefv")]
+position = Vector2(557, 415)

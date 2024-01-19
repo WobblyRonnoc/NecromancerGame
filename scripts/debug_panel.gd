@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("clear_debug_panel"):
 		clear_properties()
-	if Input.is_action_pressed("toggle_debug_panel"):
+	if Input.is_action_just_pressed("toggle_debug_panel"):
 		visible = !visible
 
 
