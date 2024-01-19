@@ -4,6 +4,9 @@ enum side {left, right}
 @export var stick: side
 const id_values : Dictionary = {"up": 1, "right": 2, "down": 3, "left": 4}
 
+@onready var line = $Line
+var travelling = false
+
 @export var radius : float = 50
 @onready var id_coords : Dictionary = {"up": Vector2(0, -radius), "right": Vector2(radius, 0), "down": Vector2(0, radius), "left": Vector2(-radius, 0)}
 @onready var analog = $AnalogPosition
@@ -23,15 +26,14 @@ func trigger_depth():
 func _ready():
 	for child in get_children():
 		if child.name.contains("SpellPoint"):
-			#FIXME: THIS MAY BE A BAD IDEA
 			child.stick = stick # carry the side down to the points
 		
 func _process(delta):
-	Global.debug.add_property("Queued [LEFT] Spell ID", Global.left_spell_key, 0)
-	#Global.debug.add_property_bar("[LEFT]Trigger Strength", Input.get_action_strength("lt"), 1)
-	
-	Global.debug.add_property("Queued [RIGHT] Spell ID", Global.right_spell_key, 3)
-	#Global.debug.add_property_bar("Right Trigger Strength", Input.get_action_strength("rt"), 4)
+	if travelling && visible:
+		if line.get_point_count() > 2000:
+			line.clear_points()
+			
+		line.add_point(analog.position)
 	
 	if stick == 0:
 		analog_vector = Input.get_vector("ls_left","ls_right","ls_up","ls_down",-1.0)
@@ -58,7 +60,7 @@ func _process(delta):
 	
 func cast(stick, spell_id):
 	has_cast = true
-	
+	line.clear_points()
 	# format key for spell list query
 	var spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
 	var spell_cast
@@ -88,9 +90,21 @@ func cast(stick, spell_id):
 		Global.right_spell_key.clear()
 		hide()
 		
+@onready var reset_timer = $ResetTimer
 
-	
-	
-	
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("spell_point") && visible:
+		line.add_point(analog.position)
+		travelling = false
+		
 
 
+func _on_area_2d_area_exited(area):
+	if area.is_in_group("spell_point") && visible:
+		line.add_point(analog.position)
+		travelling = true
+		reset_timer.start()
+
+
+func _on_reset_timer_timeout():
+	Global.clear_spell_key(stick)

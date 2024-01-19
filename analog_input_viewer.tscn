@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw7n0cn7ekrb1"]
+[gd_scene load_steps=8 format=3 uid="uid://dw7n0cn7ekrb1"]
 
 [ext_resource type="Script" path="res://analog_input_viewer.gd" id="1_li6lt"]
 [ext_resource type="PackedScene" uid="uid://bbyrp2n1shvyx" path="res://spell_point.tscn" id="2_xgq5y"]
@@ -12,13 +12,21 @@ radius = 0.0732185
 [sub_resource type="CircleShape2D" id="CircleShape2D_ifimd"]
 radius = 0.509476
 
+[sub_resource type="Curve" id="Curve_h0q1g"]
+_data = [Vector2(0, 0.110444), 0.0, 0.0, 0, 0, Vector2(0.218845, 0.789316), 0.0, 0.0, 0, 0, Vector2(0.419453, 0.204082), 0.0, 0.0, 0, 0, Vector2(0.604863, 0.742497), 0.0, 0.0, 0, 0, Vector2(0.81459, 0.0870348), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Gradient" id="Gradient_7hn2f"]
+offsets = PackedFloat32Array(0.0207612, 0.17301, 0.813149, 1)
+colors = PackedColorArray(1, 0.478431, 0, 1, 1, 0.0334275, 0, 0.996352, 1, 0, 0, 0.996078, 0.352941, 0.0431373, 0.678431, 0.423529)
+
 [node name="AnalogInputViewer" type="Node2D"]
-modulate = Color(1, 1, 1, 0.47451)
 scale = Vector2(1.6, 1.6)
 script = ExtResource("1_li6lt")
 metadata/_edit_group_ = true
 
 [node name="back" type="MeshInstance2D" parent="."]
+modulate = Color(0, 0.105882, 0.172549, 0.0784314)
 position = Vector2(1.90735e-06, 0)
 scale = Vector2(109.262, 109.163)
 mesh = SubResource("SphereMesh_v268m")
@@ -41,24 +49,42 @@ mesh = SubResource("SphereMesh_v268m")
 shape = SubResource("CircleShape2D_ifimd")
 
 [node name="SpellPoint0" parent="." instance=ExtResource("2_xgq5y")]
+modulate = Color(1, 1, 1, 0.603922)
 position = Vector2(2.08616e-07, 0)
-key_value = 0
 
 [node name="SpellPoint1" parent="." instance=ExtResource("2_xgq5y")]
+modulate = Color(1, 1, 1, 0.603922)
 position = Vector2(-1.57952e-06, -55)
 key_value = 1
 
 [node name="SpellPoint2" parent="." instance=ExtResource("2_xgq5y")]
+modulate = Color(1, 1, 1, 0.603922)
 position = Vector2(55, 2.20537e-06)
 key_value = 2
 
 [node name="SpellPoint3" parent="." instance=ExtResource("2_xgq5y")]
+modulate = Color(1, 1, 1, 0.603922)
 position = Vector2(0, 55)
 key_value = 3
 
 [node name="SpellPoint4" parent="." instance=ExtResource("2_xgq5y")]
+modulate = Color(1, 1, 1, 0.603922)
 position = Vector2(-55, -1.07289e-06)
 key_value = 4
 
+[node name="Line" type="Line2D" parent="."]
+scale = Vector2(1, 1)
+width = 5.0
+width_curve = SubResource("Curve_h0q1g")
+default_color = Color(0, 0, 0, 1)
+gradient = SubResource("Gradient_7hn2f")
+
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="area_entered" from="back/Area2D" to="." method="_center_entered"]
 [connection signal="area_exited" from="back/Area2D" to="." method="_center_exited"]
+[connection signal="area_entered" from="AnalogPosition/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="AnalogPosition/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]

@@ -1,32 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://udrj4gpdrtl7"]
+[gd_scene load_steps=7 format=3 uid="uid://udrj4gpdrtl7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_df7e2"]
 [ext_resource type="PackedScene" uid="uid://dw7n0cn7ekrb1" path="res://analog_input_viewer.tscn" id="2_8w0kq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqi6u"]
 radius = 16.0
-height = 48.0
+height = 64.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jspig"]
+radius = 1.088
+height = 2.176
+
+[sub_resource type="QuadMesh" id="QuadMesh_y2nxo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c0d2y"]
+lightmap_size_hint = Vector2i(17, 14)
+radius = 1.0
+height = 3.352
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_df7e2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -32)
 shape = SubResource("CapsuleShape2D_lqi6u")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-position = Vector2(0, -24)
-scale = Vector2(32, 24)
-mesh = SubResource("CapsuleMesh_jspig")
-
 [node name="AnalogInputViewer2" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(133, -104)
+position = Vector2(96, -64)
 scale = Vector2(1, 1)
 stick = 1
 
 [node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(-128, -104)
+position = Vector2(-96, -64)
 scale = Vector2(1, 1)
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+modulate = Color(0.152941, 0.164706, 0.176471, 1)
+position = Vector2(-9.53674e-07, 2)
+scale = Vector2(51.4706, 12.8676)
+mesh = SubResource("CapsuleMesh_jspig")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(0.500001, -32)
+scale = Vector2(15.1654, 29.4118)
+mesh = SubResource("CapsuleMesh_jspig")
+
+[node name="MeshInstance2D7" type="MeshInstance2D" parent="."]
+position = Vector2(5.68434e-14, -80)
+scale = Vector2(15.1654, 14.7059)
+mesh = SubResource("CapsuleMesh_jspig")
+
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="."]
+position = Vector2(14.7009, -30.6726)
+rotation = 2.61799
+scale = Vector2(18.7455, 75.6221)
+mesh = SubResource("QuadMesh_y2nxo")
+
+[node name="MeshInstance2D6" type="MeshInstance2D" parent="."]
+position = Vector2(-0.44046, -4.28426)
+rotation = -1.5708
+scale = Vector2(19.6453, 51.6836)
+mesh = SubResource("QuadMesh_y2nxo")
+
+[node name="MeshInstance2D5" type="MeshInstance2D" parent="."]
+position = Vector2(-14.4282, -30.5152)
+rotation = 0.523599
+scale = Vector2(18.1156, 75.6221)
+mesh = SubResource("QuadMesh_y2nxo")
+
+[node name="eye" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(8, -80)
+scale = Vector2(2.19197, 1.67065)
+mesh = SubResource("CapsuleMesh_c0d2y")
+
+[node name="eye2" type="MeshInstance2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(-8, -80)
+scale = Vector2(2.19197, 1.67065)
+mesh = SubResource("CapsuleMesh_c0d2y")

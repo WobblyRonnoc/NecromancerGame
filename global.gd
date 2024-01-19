@@ -16,7 +16,8 @@ const SPELL_LIST : Dictionary = {
 	"120" : "Fire Ball",
 	"1230": "Buff AoE",
 	"103" : "Rend Flesh",
-	"14023" : "Line AoE"
+	"14023" : "Line AoE",
+	"41230" : "Sheild"
 	}
 
 func get_spell_key(stick):
@@ -37,5 +38,9 @@ func clear_spell_key(stick):
 	if stick == 1:
 		right_spell_key.clear()
 func _process(_delta):
-	for item in SPELL_LIST:
-		debug2.add_property(item, SPELL_LIST[item], 0)
+	debug.add_property("Queued [LEFT] Spell ID", left_spell_key, 0)
+	#debug.add_property_bar("[LEFT]Trigger Strength", Input.get_action_strength("lt"), 1)
+	
+	debug.add_property("Queued [RIGHT] Spell ID", right_spell_key, 3)
+	#debug.add_property_bar("Right Trigger Strength", Input.get_action_strength("rt"), 4)
+	
