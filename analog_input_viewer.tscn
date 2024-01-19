@@ -73,7 +73,6 @@ position = Vector2(-55, -1.07289e-06)
 key_value = 4
 
 [node name="Line" type="Line2D" parent="."]
-scale = Vector2(1, 1)
 width = 5.0
 width_curve = SubResource("Curve_h0q1g")
 default_color = Color(0, 0, 0, 1)
