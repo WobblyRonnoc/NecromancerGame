@@ -1,8 +1,7 @@
 class_name Npc
 
 extends CharacterBody2D
-@onready var player = $"../Player"
-
+@onready var player = $"../Player" # player info needs to not be hard coded
 
 @onready var target = player.global_position
 var speed = 75
@@ -18,6 +17,8 @@ enum STATES {
 	MOVE_TO
 }
 var current_state = STATES.IDLE
+@onready var anim = $AnimatedSprite2D
+@onready var anim2 = $AnimatedSprite2D2
 
 func _ready():
 	if Global.dev_mode:
@@ -31,6 +32,7 @@ func idle():
 
 func follow():
 	velocity = position.direction_to(target) * speed
+
 
 func run():
 	if position.distance_to(target) < safe_distance:
@@ -57,6 +59,12 @@ func get_current_state(current_state):
 		wander()
 	
 func _process(delta):
+	if current_state == STATES.RUN:
+		anim.show()
+		anim2.show()
+	else:
+		anim.hide()
+		anim2.hide()
 	target = player.global_position
 	get_current_state(current_state)
 	

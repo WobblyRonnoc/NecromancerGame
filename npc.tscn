@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt27tsl0sgw23"]
+[gd_scene load_steps=13 format=3 uid="uid://dt27tsl0sgw23"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
+[ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
 radius = 1.0
@@ -14,6 +15,49 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_un8cn"]
 resource_local_to_scene = true
 radius = 448.071
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eqs0"]
+atlas = ExtResource("2_agv36")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj716"]
+atlas = ExtResource("2_agv36")
+region = Rect2(31, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrsko"]
+atlas = ExtResource("2_agv36")
+region = Rect2(62, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wr1u"]
+atlas = ExtResource("2_agv36")
+region = Rect2(93, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jesdi"]
+atlas = ExtResource("2_agv36")
+region = Rect2(124, 0, 31, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l7v4p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eqs0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj716")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrsko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wr1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jesdi")
+}],
+"loop": true,
+"name": &"panic",
+"speed": 12.0
+}]
 
 [node name="NPC" type="CharacterBody2D"]
 modulate = Color(0.462745, 1, 0.560784, 1)
@@ -48,5 +92,22 @@ visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_un8cn")
 debug_color = Color(0.917647, 0.141176, 0.607843, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-8, -112)
+sprite_frames = SubResource("SpriteFrames_l7v4p")
+animation = &"panic"
+autoplay = "panic"
+frame_progress = 0.592873
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(8, -112)
+scale = Vector2(-0.895912, 1)
+sprite_frames = SubResource("SpriteFrames_l7v4p")
+animation = &"panic"
+autoplay = "panic"
+frame_progress = 0.903705
 
 [connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]

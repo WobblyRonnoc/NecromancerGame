@@ -17,7 +17,7 @@ ease = 3
 [node name="Level" type="Node2D"]
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
-position = Vector2(557, 315.009)
+position = Vector2(557, 315)
 script = ExtResource("3_emy0f")
 priority_override = false
 priority = 5
