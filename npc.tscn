@@ -1,7 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dt27tsl0sgw23"]
+[gd_scene load_steps=16 format=3 uid="uid://dt27tsl0sgw23"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
+[ext_resource type="Script" path="res://scripts/States/state_machine.gd" id="3_basyc"]
+[ext_resource type="Script" path="res://NpcIdleState.gd" id="4_li8bv"]
+[ext_resource type="Script" path="res://NpcWanderState.gd" id="5_ogquj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
 radius = 1.0
@@ -86,7 +89,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ktp8o")
 
 [node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
 position = Vector2(0, -8)
@@ -109,5 +111,15 @@ sprite_frames = SubResource("SpriteFrames_l7v4p")
 animation = &"panic"
 autoplay = "panic"
 frame_progress = 0.903705
+
+[node name="NpcStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("3_basyc")
+CURRENT_STATE = NodePath("NpcWanderState")
+
+[node name="NpcIdleState" type="Node" parent="NpcStateMachine"]
+script = ExtResource("4_li8bv")
+
+[node name="NpcWanderState" type="Node" parent="NpcStateMachine"]
+script = ExtResource("5_ogquj")
 
 [connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]

@@ -15,18 +15,6 @@ const JUMP_VELOCITY = -400.0
 @onready var wheels = [wheel, wheel2]
 
 signal cast(spell_id : String)
-enum STATES {
-	IDLE,
-	IMMOBILE,
-	CASTING
-}
-var current_state = STATES.IDLE
-
-
-
-
-
-
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 0
@@ -85,5 +73,5 @@ func _process(delta):
 func _on_terror_area_entered(area):
 	var npc = area.get_parent()
 	if area.is_in_group("fear_area"):
-		npc.current_state = npc.STATES.RUN
+		pass
 		
