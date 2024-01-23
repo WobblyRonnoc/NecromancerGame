@@ -85,12 +85,7 @@ width_curve = SubResource("Curve_h0q1g")
 default_color = Color(0, 0, 0, 1)
 gradient = SubResource("Gradient_7hn2f")
 
-[node name="ResetTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
-
 [connection signal="area_entered" from="back/Area2D" to="." method="_center_entered"]
 [connection signal="area_exited" from="back/Area2D" to="." method="_center_exited"]
 [connection signal="area_entered" from="AnalogPosition/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="AnalogPosition/Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]

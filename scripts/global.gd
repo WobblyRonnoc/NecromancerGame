@@ -8,12 +8,10 @@ var dev_mode = true
 var debug
 var debug2 
 
-var spell
-
 var r_analog_angle = 0.0
 var r_analog_position = Vector2.ZERO
 
-var right_spell_key : Array = []
+var spell_key : Array = []
 
 const SPELL_LIST : Dictionary = {
 	"120" : "Fire Ball",
@@ -24,8 +22,12 @@ const SPELL_LIST : Dictionary = {
 	"43210" : "Summon Undead"
 	}
 
+#UTILITY FUNCTIONS (move to seperate global later!!)
+func formated_spell_id():
+	return str("".join(spell_key).lstrip("[").rstrip("],")) 
+
 func validate_spell(spell_id: Array):
-	spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
+	var spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
 	# Check cast against spells
 	for key in SPELL_LIST:
 		if key == spell:
@@ -34,6 +36,19 @@ func validate_spell(spell_id: Array):
 	# if the loop finds no valid spell return false
 	return false
 	
+func is_trigger_pulled():
+	var amount
+	var trigger_pulled
+	# get stick to measure action strength of
+	amount = Input.get_action_strength("lt")
+		
+	# measure and return true if it is pulled
+	if amount > 0.0:
+		trigger_pulled = true
+	elif amount < 1.0:
+		trigger_pulled = false
+		
+	return trigger_pulled
 
 func _ready():
 	pass
@@ -43,6 +58,5 @@ func _process(_delta):
 		get_tree().get_current_scene().get_child(0).camera_zoom *= 1.05
 	if Input.is_action_just_pressed("zoom_out"):
 		get_tree().get_current_scene().get_child(0).camera_zoom *= 0.95
-	
-	if get_tree().get_current_scene().scene_file_path == Scenes.LEVEL:
-		debug.add_property("Queued [RIGHT] Spell ID", right_spell_key, 3)
+
+	debug.add_property("Player State", player.player_state_machine.CURRENT_STATE.name,0)

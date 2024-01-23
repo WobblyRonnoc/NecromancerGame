@@ -5,6 +5,7 @@ extends Node
 @export var CURRENT_STATE : State
 var states: Dictionary = {}
 
+
 func _ready():
 	for child in get_children():
 		if child is State:

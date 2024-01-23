@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var right_hand = $RightHand
+@onready var player_state_machine = $PlayerStateMachine
 var rh_vector
 
 
@@ -41,6 +42,7 @@ func move():
 func _ready():
 	Global.player = self
 	Global.wheel_ui = wheel
+	
 func _on_terror_area_entered(area):
 	pass
 		

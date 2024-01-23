@@ -28,6 +28,7 @@ motion_mode = 1
 script = ExtResource("1_e8ulj")
 
 [node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
+visible = false
 position = Vector2(-128, -128)
 scale = Vector2(1, 1)
 

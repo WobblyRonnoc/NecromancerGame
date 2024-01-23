@@ -49,7 +49,9 @@ func add_property(title : String, value, order):
 			target.text = title + ": " + str(value)
 			# TODO: add sorting logic to override existing indexes
 	
-	
+func remove_property(index: int):
+	property_container.get_child(index).queue_free()
+
 func clear_properties():
 	for child in property_container.get_children():
 		child.queue_free()

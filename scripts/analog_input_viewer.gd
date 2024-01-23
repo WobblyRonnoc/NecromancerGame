@@ -11,70 +11,40 @@ var travelling = false
 @onready var back = $back
 @onready var analog_vector
 
-@onready var reset_timer = $ResetTimer
-
 func _ready():
-	pass
+	Global.wheel_ui = self
+
+func create_line():
+		line.add_point(analog.position)
 
 func _process(delta):
 	if travelling && visible:
-		if line.get_point_count() > 2000:
-			line.clear_points()
-		line.add_point(analog.position)
+		create_line()
+	if line.get_point_count() > 2000:
+		line.clear_points()
 		
 	analog_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
-		
+	
 	# limit the input display's position to the radius 
 	analog.position = analog_vector * radius
 	analog.position.clamp(position, analog_vector * radius)
 	
 
-
-func cast(stick, spell_id):
-	line.clear_points()
-	# format key for spell list query
-	var spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
-	var spell_cast
-	# Check cast against spells
-	for key in Global.SPELL_LIST:
-		if key == spell:
-			spell_cast = Global.SPELL_LIST[spell]
-			Global.debug2.add_property("Spell Cast", spell_cast, 0)
-			break
-		else:
-			spell_cast = ""
-			Global.debug2.add_property("Spell Cast", spell_cast, 0)
-			# emit a cast signal here so things know what to do!
-			
+func reset_selection():
 	# Clear and reset for next cast
 	for child in get_children():
 		if child.name.contains("SpellPoint"):
 			child.selected = false
- 
-	if stick == 0:
-		Global.debug.add_property("[LEFT] Cast Spell ID", spell, 1)
-		Global.left_spell_key.clear()
-		hide()
-	if stick == 1:
-		Global.debug.add_property("[RIGHT] Cast Spell ID", spell, 4)
-		Global.right_spell_key.clear()
-		hide()
-		
-
+	line.clear_points()
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("spell_point") && visible:
-		line.add_point(analog.position)
+		create_line()
 		travelling = false
-		
 
 
 func _on_area_2d_area_exited(area):
 	if area.is_in_group("spell_point") && visible:
-		line.add_point(analog.position)
+		create_line()
 		travelling = true
-		reset_timer.start()
 
-
-func _on_reset_timer_timeout():
-	Global.right_spell_key.clear()

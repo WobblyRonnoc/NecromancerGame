@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dt27tsl0sgw23"]
+[gd_scene load_steps=17 format=3 uid="uid://dt27tsl0sgw23"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
 [ext_resource type="Script" path="res://scripts/States/state_machine.gd" id="3_basyc"]
 [ext_resource type="Script" path="res://NpcIdleState.gd" id="4_li8bv"]
 [ext_resource type="Script" path="res://NpcWanderState.gd" id="5_ogquj"]
+[ext_resource type="Script" path="res://NpcFearState.gd" id="6_im1vs"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
 radius = 1.0
@@ -62,7 +63,7 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="NPC" type="CharacterBody2D"]
+[node name="NPC" type="CharacterBody2D" groups=["npc"]]
 modulate = Color(0.462745, 1, 0.560784, 1)
 script = ExtResource("1_y22kf")
 safe_distance = 1000.0
@@ -121,5 +122,15 @@ script = ExtResource("4_li8bv")
 
 [node name="NpcWanderState" type="Node" parent="NpcStateMachine"]
 script = ExtResource("5_ogquj")
+
+[node name="NpcFearState" type="Node" parent="NpcStateMachine"]
+script = ExtResource("6_im1vs")
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -136.0
+offset_right = 23.0
+offset_bottom = -113.0
+text = "STATE"
 
 [connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]
