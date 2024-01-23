@@ -1,7 +1,5 @@
 extends Node2D
 
-enum side {left, right}
-@export var stick: side
 const id_values : Dictionary = {"up": 1, "right": 2, "down": 3, "left": 4}
 
 @onready var line = $Line
@@ -14,61 +12,25 @@ var travelling = false
 @onready var analog_vector
 
 @onready var reset_timer = $ResetTimer
-var has_cast : bool = false
-
-var is_casting : bool = false
-
-
-func is_trigger_pulled():
-	var amount
-	var trigger_pulled
-	# get stick to measure action strength of
-	if stick == 0:
-		amount = Input.get_action_strength("lt") 
-	if stick == 1:
-		amount = Input.get_action_strength("rt")
-		
-	# measure and return true if it is pulled
-	if amount > 0.0:
-		trigger_pulled = true
-	elif amount < 1.0:
-		trigger_pulled = false
-		
-	return trigger_pulled
 
 func _ready():
-	for child in get_children():
-		if child.name.contains("SpellPoint"):
-			child.stick = stick # carry the side down to the points
-
+	pass
 
 func _process(delta):
 	if travelling && visible:
 		if line.get_point_count() > 2000:
-			line.clear_points()	
+			line.clear_points()
 		line.add_point(analog.position)
 		
-	if stick == 0:
-		analog_vector = Input.get_vector("ls_left","ls_right","ls_up","ls_down",-1.0)
-	else:
-		analog_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
+	analog_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
 		
 	# limit the input display's position to the radius 
 	analog.position = analog_vector * radius
 	analog.position.clamp(position, analog_vector * radius)
 	
-	# check if casting
-	if is_trigger_pulled():
-		has_cast = false
-		is_casting = true
-		show()
-	elif !has_cast:
-		cast(stick, Global.get_spell_key(stick))
 
 
 func cast(stick, spell_id):
-	has_cast = true
-	is_casting = false
 	line.clear_points()
 	# format key for spell list query
 	var spell = str("".join(spell_id).lstrip("[").rstrip("],")) 
@@ -115,4 +77,4 @@ func _on_area_2d_area_exited(area):
 
 
 func _on_reset_timer_timeout():
-	Global.clear_spell_key(stick)
+	Global.right_spell_key.clear()

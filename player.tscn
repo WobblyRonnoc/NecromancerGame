@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://udrj4gpdrtl7"]
+[gd_scene load_steps=11 format=3 uid="uid://udrj4gpdrtl7"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_e8ulj"]
 [ext_resource type="PackedScene" uid="uid://dw7n0cn7ekrb1" path="res://analog_input_viewer.tscn" id="2_8w0kq"]
+[ext_resource type="Script" path="res://scripts/States/state_machine.gd" id="3_uxqj3"]
+[ext_resource type="Script" path="res://PlayerWeaveState.gd" id="4_2ynra"]
+[ext_resource type="Script" path="res://PlayerIdleState.gd" id="4_da6do"]
+[ext_resource type="Script" path="res://PlayerCastState.gd" id="6_2twro"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jspig"]
 radius = 1.088
@@ -22,6 +26,10 @@ radius = 1048.0
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_e8ulj")
+
+[node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
+position = Vector2(-128, -128)
+scale = Vector2(1, 1)
 
 [node name="LeftHand" type="MeshInstance2D" parent="."]
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
@@ -77,13 +85,17 @@ priority = 1
 shape = SubResource("CircleShape2D_ea0qd")
 disabled = true
 
-[node name="AnalogInputViewer2" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(128, -128)
-scale = Vector2(1, 1)
-stick = 1
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+script = ExtResource("3_uxqj3")
+CURRENT_STATE = NodePath("PlayerIdleState")
 
-[node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
-position = Vector2(-128, -128)
-scale = Vector2(1, 1)
+[node name="PlayerIdleState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("4_da6do")
+
+[node name="PlayerWeaveState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("4_2ynra")
+
+[node name="PlayerCastState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("6_2twro")
 
 [connection signal="area_entered" from="TerrorArea" to="." method="_on_terror_area_entered"]
