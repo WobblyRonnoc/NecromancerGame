@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
-[ext_resource type="Script" path="res://scripts/States/state_machine.gd" id="3_basyc"]
+[ext_resource type="Script" path="res://NpcStateMachine.gd" id="3_ivxtm"]
 [ext_resource type="Script" path="res://NpcIdleState.gd" id="4_li8bv"]
 [ext_resource type="Script" path="res://NpcWanderState.gd" id="5_ogquj"]
 [ext_resource type="Script" path="res://NpcFearState.gd" id="6_im1vs"]
@@ -64,11 +64,9 @@ animations = [{
 }]
 
 [node name="NPC" type="CharacterBody2D" groups=["npc"]]
-modulate = Color(0.462745, 1, 0.560784, 1)
 script = ExtResource("1_y22kf")
-safe_distance = 1000.0
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="."]
+[node name="shadow" type="MeshInstance2D" parent="."]
 modulate = Color(0.00392157, 0.00392157, 0.00392157, 0.254902)
 position = Vector2(-1.13687e-13, -4)
 scale = Vector2(24, 12)
@@ -90,6 +88,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ktp8o")
 
 [node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
 position = Vector2(0, -8)
@@ -114,8 +113,8 @@ autoplay = "panic"
 frame_progress = 0.903705
 
 [node name="NpcStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
-script = ExtResource("3_basyc")
-CURRENT_STATE = NodePath("NpcWanderState")
+script = ExtResource("3_ivxtm")
+CURRENT_STATE = NodePath("NpcIdleState")
 
 [node name="NpcIdleState" type="Node" parent="NpcStateMachine"]
 script = ExtResource("4_li8bv")
@@ -133,4 +132,7 @@ offset_right = 23.0
 offset_bottom = -113.0
 text = "STATE"
 
+[node name="IdleWanderTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]
+[connection signal="timeout" from="IdleWanderTimer" to="NpcStateMachine/NpcIdleState" method="_on_idle_wander_timer_timeout"]

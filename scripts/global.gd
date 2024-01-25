@@ -59,4 +59,4 @@ func _process(_delta):
 	if Input.is_action_just_pressed("zoom_out"):
 		get_tree().get_current_scene().get_child(0).camera_zoom *= 0.95
 
-	debug.add_property("Player State", player.player_state_machine.CURRENT_STATE.name,0)
+	debug.add_property("Player State", player.state_machine.CURRENT_STATE.name,0)

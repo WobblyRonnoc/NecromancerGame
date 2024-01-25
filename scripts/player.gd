@@ -1,8 +1,8 @@
+class_name Player
 extends CharacterBody2D
 
+@onready var state_machine = $PlayerStateMachine
 @onready var right_hand = $RightHand
-@onready var player_state_machine = $PlayerStateMachine
-var rh_vector
 
 
 @onready var wheel = $AnalogInputViewer
@@ -16,6 +16,7 @@ const JUMP_VELOCITY = -400.0
 var gravity = 0
 
 func raise_hand():
+	var rh_vector
 	rh_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
 	right_hand.position.x = wheel.position.x * 0.25 + rh_vector.x * radius
 	right_hand.position.y = wheel.position.y/2 + rh_vector.y * radius

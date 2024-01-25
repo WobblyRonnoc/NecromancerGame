@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://4ri0jgqb2jxh"]
+[gd_scene load_steps=8 format=3 uid="uid://4ri0jgqb2jxh"]
 
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_4o4p2"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_b2vc0"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://udrj4gpdrtl7" path="res://player.tscn" id="3_nmefv"]
 [ext_resource type="PackedScene" uid="uid://bwymmn4gumgb1" path="res://debug_panel.tscn" id="4_h1nyo"]
 [ext_resource type="PackedScene" uid="uid://cegqq87o21rd2" path="res://director.tscn" id="5_wupte"]
-[ext_resource type="PackedScene" uid="uid://dt27tsl0sgw23" path="res://npc.tscn" id="6_casvv"]
 
 [sub_resource type="Resource" id="Resource_6jk0a"]
 script = ExtResource("3_b2vc0")
@@ -78,9 +77,6 @@ size_flags_horizontal = 6
 size_flags_vertical = 0
 
 [node name="Director" parent="." instance=ExtResource("5_wupte")]
-
-[node name="NPC" parent="Director" instance=ExtResource("6_casvv")]
-position = Vector2(256, 447)
 
 [node name="Player" parent="Director" instance=ExtResource("3_nmefv")]
 position = Vector2(557, 415)

@@ -1,4 +1,4 @@
-class_name NpcStateMachine
+class_name PlayerStateMachine
 extends Node
 
 @export var CURRENT_STATE : State
@@ -30,4 +30,3 @@ func on_child_transition(new_state_name : StringName) -> void:
 			CURRENT_STATE = new_state
 		else:
 			push_warning("State does not exist")
-
