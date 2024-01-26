@@ -21,8 +21,11 @@ var idle_time
 var fearful = false
 
 func _ready():
-	if Global.dev_mode:
-		position = get_global_mouse_position()
+	#position = get_global_mouse_position()
+	
+	#for zombie:
+	position = Global.cursor.position
+	
 		
 	speed = randf_range(75, 150)
 	

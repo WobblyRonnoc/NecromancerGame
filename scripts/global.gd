@@ -4,6 +4,9 @@ var dev_mode = true
 
 @onready var player
 @onready var wheel_ui
+@onready var cast_cursor = load("res://Casting UI/cast_cursor.tscn").instantiate()
+
+var cursor
 
 var debug
 var debug2 
@@ -51,8 +54,10 @@ func is_trigger_pulled():
 	return trigger_pulled
 
 func _ready():
-	pass
-
+	#add cast cursor to the ui and Hide it
+	get_tree().get_current_scene().find_child("CanvasLayer").find_child("Control").add_child(cast_cursor,true)
+	cursor = get_tree().get_current_scene().find_child("CanvasLayer").find_child("Control").get_child(1)
+	cursor.hide()
 func _process(_delta):
 	if Input.is_action_just_pressed("zoom_in"):
 		get_tree().get_current_scene().get_child(0).camera_zoom *= 1.05
