@@ -12,11 +12,11 @@ func _ready():
 			player = child
 			player_position = player.global_position
 	
-func get_player_state() -> String:
+func get_player_state() -> StringName:
 	return player.state_machine.CURRENT_STATE.name
 
 
-func get_npc_state(npc_id : int) -> String:
+func get_npc_state(npc_id : int) -> StringName:
 	return npcs[npc_id].state_machine.CURRENT_STATE.name
 
 
@@ -29,27 +29,25 @@ func debug_all_npc_states():
 func force_state(new_state : String, target: Node):
 	target.state_machine.CURRENT_STATE.transition.emit(new_state)
 
-# use the signal instead of forcing to avoid constantly overriding
-func npc_fear_check(entity):
-	if entity.position.distance_to(player.position) < entity.safe_distance:
-		entity.state_machine.CURRENT_STATE.transition.emit("NpcFearState")
+# run away if fearful or player is casting stuff
 
 
 func spawn_npc(entity : PackedScene):
-	var x = npc.instantiate()
+	var x = entity.instantiate()
 	add_child(x,true)
 	
 
 func _process(delta):
 	Global.debug2.add_property("player state", get_player_state(), 0)
-	if get_player_state() != "PlayerIdleState":
-		for entity in get_tree().get_nodes_in_group("npc"):
-			npc_fear_check(entity)
+	for child in get_children():
+		if child.is_in_group("npc"):
+			if child.position.distance_to(player.position) < child.safe_distance:
+				if child.fearful == true || get_player_state() != "PlayerIdleState":
+					child.state_machine.CURRENT_STATE.transition.emit("NpcFearState")
+				
 	debug_all_npc_states()
 	
-	# if player is not in idle state -> check if all npc's distance_to(player.global_position) > safe_distance
-	#if not: each npc too close to player transitions to fear state
-	
+
 	if player:
 		player_position = player.global_position
 

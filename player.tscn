@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_e8ulj"]
 [ext_resource type="PackedScene" uid="uid://dw7n0cn7ekrb1" path="res://analog_input_viewer.tscn" id="2_8w0kq"]
-[ext_resource type="Script" path="res://scripts/States/PlayerStateMachine.gd" id="3_dp7qs"]
-[ext_resource type="Script" path="res://PlayerWeaveState.gd" id="4_2ynra"]
-[ext_resource type="Script" path="res://PlayerIdleState.gd" id="4_da6do"]
-[ext_resource type="Script" path="res://PlayerCastState.gd" id="6_2twro"]
-[ext_resource type="Script" path="res://PlayerStunnedState.gd" id="7_oixna"]
+[ext_resource type="Script" path="res://scripts/States/machines/PlayerStateMachine.gd" id="3_dp7qs"]
+[ext_resource type="Script" path="res://scripts/States/playerStates/PlayerWeaveState.gd" id="4_2ynra"]
+[ext_resource type="Script" path="res://scripts/States/playerStates/PlayerIdleState.gd" id="4_da6do"]
+[ext_resource type="Script" path="res://scripts/States/playerStates/PlayerCastState.gd" id="6_2twro"]
+[ext_resource type="Script" path="res://scripts/States/playerStates/PlayerStunnedState.gd" id="7_oixna"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jspig"]
 radius = 1.088
@@ -22,7 +22,7 @@ radius = 1.0
 height = 3.352
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ea0qd"]
-radius = 296.432
+radius = 696.046
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1

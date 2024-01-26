@@ -44,6 +44,6 @@ func _ready():
 	Global.player = self
 	Global.wheel_ui = wheel
 	
-func _on_terror_area_entered(area):
+func _on_terror_area_entered(_area):
 	pass
 		

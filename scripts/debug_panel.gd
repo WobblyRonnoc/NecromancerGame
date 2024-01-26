@@ -12,7 +12,7 @@ func _ready():
 		Global.debug2 = self
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("clear_debug_panel"):
 		clear_properties()
 	if Input.is_action_just_pressed("toggle_debug_panel"):
@@ -35,7 +35,7 @@ func add_property_bar(title : String, value, order):
 	
 	
 
-func add_property(title : String, value, order):
+func add_property(title : String, value, _order):
 	var target
 	target = property_container.find_child(title, true, false)
 	if !target:

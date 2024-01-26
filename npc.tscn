@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
-[ext_resource type="Script" path="res://NpcStateMachine.gd" id="3_ivxtm"]
-[ext_resource type="Script" path="res://NpcIdleState.gd" id="4_li8bv"]
-[ext_resource type="Script" path="res://NpcWanderState.gd" id="5_ogquj"]
-[ext_resource type="Script" path="res://NpcFearState.gd" id="6_im1vs"]
+[ext_resource type="Script" path="res://scripts/States/machines/NpcStateMachine.gd" id="3_ivxtm"]
+[ext_resource type="Script" path="res://scripts/States/npcStates/NpcIdleState.gd" id="4_li8bv"]
+[ext_resource type="Script" path="res://scripts/States/npcStates/NpcWanderState.gd" id="5_ogquj"]
+[ext_resource type="Script" path="res://scripts/States/npcStates/NpcFearState.gd" id="6_im1vs"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
 radius = 1.0
@@ -18,7 +18,7 @@ height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_un8cn"]
 resource_local_to_scene = true
-radius = 448.071
+radius = 160.2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3eqs0"]
 atlas = ExtResource("2_agv36")
@@ -65,6 +65,7 @@ animations = [{
 
 [node name="NPC" type="CharacterBody2D" groups=["npc"]]
 script = ExtResource("1_y22kf")
+safe_distance = 700.0
 
 [node name="shadow" type="MeshInstance2D" parent="."]
 modulate = Color(0.00392157, 0.00392157, 0.00392157, 0.254902)
@@ -88,7 +89,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ktp8o")
 
 [node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
 position = Vector2(0, -8)
@@ -134,5 +134,6 @@ text = "STATE"
 
 [node name="IdleWanderTimer" type="Timer" parent="."]
 
-[connection signal="area_entered" from="FearArea" to="." method="_on_fear_area_entered"]
+[connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcIdleState" method="_on_fear_area_body_entered"]
+[connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcWanderState" method="_on_fear_area_body_entered"]
 [connection signal="timeout" from="IdleWanderTimer" to="NpcStateMachine/NpcIdleState" method="_on_idle_wander_timer_timeout"]

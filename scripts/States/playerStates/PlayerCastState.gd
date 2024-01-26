@@ -9,11 +9,11 @@ func cast(spell_id):
 	if Global.validate_spell(spell_id):
 		Global.debug2.add_property("Spell Cast", spell_cast, 0)
 			
-func enter():
+func enter(_last_state):
 	print("Cast Success!")
 	Global.debug.add_property("Current Spell", Global.SPELL_LIST[Global.formated_spell_id()], 1)
 
-func update(delta):
+func update(_delta):
 	if Input.is_action_just_pressed("rt"):
 		transition.emit("PlayerIdleState")
 		

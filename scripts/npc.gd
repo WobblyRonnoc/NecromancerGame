@@ -14,9 +14,11 @@ extends CharacterBody2D
 @onready var state_label = $StateLabel
 
 
-var move_direction
+var wander_direction
 var wander_time
 var idle_time
+
+var fearful = false
 
 func _ready():
 	if Global.dev_mode:
@@ -25,5 +27,5 @@ func _ready():
 	speed = randf_range(75, 150)
 	
 func _process(delta):
-	state_label.text = state_machine.CURRENT_STATE.name
+	state_label.text = state_machine.CURRENT_STATE.name + " fearful: " + str(fearful)
 	move_and_slide()

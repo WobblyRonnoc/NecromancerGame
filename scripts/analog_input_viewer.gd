@@ -17,7 +17,7 @@ func _ready():
 func create_line():
 		line.add_point(analog.position)
 
-func _process(delta):
+func _process(_delta):
 	if travelling && visible:
 		create_line()
 	if line.get_point_count() > 2000:
