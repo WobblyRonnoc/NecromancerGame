@@ -2,29 +2,34 @@ class_name Player
 extends CharacterBody2D
 
 @onready var state_machine = $PlayerStateMachine
-@onready var right_hand = $RightHand
 
+@onready var right_hand = $RightHand
 
 @onready var wheel = $AnalogInputViewer
 @onready var radius = wheel.radius / 2
-@onready var terror_area = $TerrorArea
+@onready var sprite = $Sprite
 
 @export var SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var flip = false
+
 var gravity = 0
 
 func raise_hand():
+	var resting_pos = Vector2(0,-48)
+	right_hand.show()
 	var rh_vector
+	if flip:
+		right_hand.position.x *= -1
+	if !flip:
+		right_hand.position.x = abs(right_hand.position.x)
 	rh_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
-	right_hand.position.x = wheel.position.x * 0.25 + rh_vector.x * radius
-	right_hand.position.y = wheel.position.y/2 + rh_vector.y * radius
-	right_hand.position.clamp(position, rh_vector * radius)
-		
-func emit_terror(state: bool):
-	terror_area.get_child(0).set_deferred("disabled", state)
-
+	right_hand.position.x = rh_vector.x * radius
+	right_hand.position.y = rh_vector.y * radius
+	right_hand.position.clamp(right_hand.position, rh_vector * radius)
+	
+	
 func move():
 	var x_direction = Input.get_axis("ui_left", "ui_right")
 	var y_direction = Input.get_axis("ui_up", "ui_down")
@@ -43,7 +48,13 @@ func move():
 func _ready():
 	Global.player = self
 	Global.wheel_ui = wheel
-	
-func _on_terror_area_entered(_area):
-	pass
-		
+
+func _process(delta):
+	#flip the 'sprite'
+	if Input.is_action_just_pressed("ui_left"):
+		flip = true
+		sprite.scale.x = -1
+	elif Input.is_action_just_pressed("ui_right"):
+		flip = false
+		sprite.scale.x = 1
+

@@ -18,10 +18,11 @@ var wander_direction
 var wander_time
 var idle_time
 
-var fearful = false
+var fearful 
 var is_dead
 
 func _ready():
+	fearful = false
 	position = get_global_mouse_position()
 	speed = randf_range(75, 150)
 	

@@ -20,8 +20,10 @@ func exit(_new_state):
 	cursor = Global.cursor
 	get_tree().current_scene.find_child("Director").spawn_npc(undead)
 	cursor.hide()
+	Global.player.right_hand.hide()
 	
 func update(_delta):
+	Global.player.raise_hand()
 	cursor.global_position.x +=  Input.get_axis("rs_left","rs_right") * 3
 	cursor.global_position.y +=  Input.get_axis("rs_up","rs_down") *3
 	

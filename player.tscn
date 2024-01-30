@@ -22,8 +22,9 @@ lightmap_size_hint = Vector2i(17, 14)
 radius = 1.0
 height = 3.352
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ea0qd"]
-radius = 696.046
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f4isr"]
+radius = 144.0
+height = 570.0
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -39,7 +40,7 @@ scale = Vector2(1, 1)
 visible = false
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
 z_index = 1
-position = Vector2(-24, -32)
+position = Vector2(0, -48)
 scale = Vector2(7.5827, 7.35295)
 mesh = SubResource("CapsuleMesh_jspig")
 
@@ -47,7 +48,7 @@ mesh = SubResource("CapsuleMesh_jspig")
 visible = false
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
 z_index = 1
-position = Vector2(24, -32)
+position = Vector2(0, -48)
 scale = Vector2(7.5827, 7.35295)
 mesh = SubResource("CapsuleMesh_jspig")
 
@@ -55,40 +56,35 @@ mesh = SubResource("CapsuleMesh_jspig")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lqi6u")
 
-[node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Sprite"]
 modulate = Color(0.152941, 0.164706, 0.176471, 1)
 position = Vector2(-9.53674e-07, 2)
 scale = Vector2(51.4706, 12.8676)
 mesh = SubResource("CapsuleMesh_jspig")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Sprite"]
 position = Vector2(0.500001, -32)
 scale = Vector2(15.1654, 29.4118)
 mesh = SubResource("CapsuleMesh_jspig")
 
-[node name="MeshInstance2D7" type="MeshInstance2D" parent="."]
+[node name="MeshInstance2D7" type="MeshInstance2D" parent="Sprite"]
 position = Vector2(5.68434e-14, -80)
 scale = Vector2(15.1654, 14.7059)
 mesh = SubResource("CapsuleMesh_jspig")
 
-[node name="eye" type="MeshInstance2D" parent="."]
+[node name="eye" type="MeshInstance2D" parent="Sprite"]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(8, -80)
+position = Vector2(13, -80)
 scale = Vector2(2.19197, 1.67065)
 mesh = SubResource("CapsuleMesh_c0d2y")
 
-[node name="eye2" type="MeshInstance2D" parent="."]
+[node name="eye2" type="MeshInstance2D" parent="Sprite"]
 modulate = Color(1, 0, 0, 1)
-position = Vector2(-8, -80)
+position = Vector2(-5.96046e-08, -80)
 scale = Vector2(2.19197, 1.67065)
 mesh = SubResource("CapsuleMesh_c0d2y")
-
-[node name="TerrorArea" type="Area2D" parent="." groups=["terror_area"]]
-priority = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TerrorArea"]
-shape = SubResource("CircleShape2D_ea0qd")
-disabled = true
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
 script = ExtResource("3_dp7qs")
@@ -109,4 +105,12 @@ script = ExtResource("7_oixna")
 [node name="PlayerCommandState" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("8_vl8hb")
 
-[connection signal="area_entered" from="TerrorArea" to="." method="_on_terror_area_entered"]
+[node name="SelectionArea" type="Area2D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectionArea"]
+position = Vector2(328, -88)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f4isr")

@@ -7,7 +7,7 @@ func listen_for_casting_input():
 
 func enter(_last_state):
 	if Global.player:
-		Global.player.emit_terror(false)
+		#Global.player.emit_terror(false)
 		Global.spell_key.clear()
 
 func update(_delta):

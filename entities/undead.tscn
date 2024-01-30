@@ -14,7 +14,7 @@ height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t7xom"]
 radius = 48.0
-height = 112.0
+height = 176.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yut1k"]
 radius = 472.271
@@ -51,12 +51,17 @@ script = ExtResource("6_un20k")
 script = ExtResource("7_8ledc")
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["undead"]]
+visible = false
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -56)
+position = Vector2(64, -48)
+rotation = -1.5708
 shape = SubResource("CapsuleShape2D_t7xom")
 
 [node name="AggroArea" type="Area2D" parent="."]
+visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
