@@ -36,6 +36,7 @@ func run_from(target : Vector2):
 
 func _on_hitbox_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.is_in_group("undead"):
+		npc.is_dead = true
 		Global.npcs.erase(self)
 		hitbox.set_deferred("monitoring", false)
 		hitbox.set_deferred("monitorable", false)

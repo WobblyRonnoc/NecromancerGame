@@ -5,7 +5,7 @@ extends State
 
 var random_num
 var target
-var radius = 100
+var radius = 200
 
 func move(target, delta):
 	var direction = (target - undead.global_position).normalized()
@@ -18,8 +18,8 @@ func move(target, delta):
 func get_circle_position(random):
 	var circle_center = undead.target.global_position
 	var angle = random * PI * 2
-	var x = circle_center.x + cos(angle) * radius
-	var y = circle_center.y + sin(angle) * radius
+	var x = circle_center.x + cos(angle) * (radius + randf_range(-50, 50))
+	var y = circle_center.y + sin(angle) * (radius + randf_range(-50, 50))
 	return Vector2(x, y)
 
 
@@ -37,5 +37,7 @@ func update(delta):
 
 func _on_aggro_area_body_entered(body):
 	if body.is_in_group("npc"):
-		undead.target = body.get_parent()
+		print(body.name)
+		undead.target = body
+		print(undead.target.global_position)
 		transition.emit("UndeadSurroundState")

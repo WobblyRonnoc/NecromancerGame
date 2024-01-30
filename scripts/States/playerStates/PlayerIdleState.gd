@@ -9,9 +9,10 @@ func enter(_last_state):
 	if Global.player:
 		Global.player.emit_terror(false)
 		Global.spell_key.clear()
-		Global.debug.remove_property(1)
 
 func update(_delta):
+	if Input.is_action_just_pressed("rt"):
+		transition.emit("PlayerCommandState")
 	Global.player.move()
 	listen_for_casting_input()
 

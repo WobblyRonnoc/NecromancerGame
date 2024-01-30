@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdict4sdap4ha"]
+[gd_scene load_steps=11 format=3 uid="uid://cdict4sdap4ha"]
 
 [ext_resource type="Script" path="res://scripts/undead.gd" id="1_5hd2v"]
 [ext_resource type="Texture2D" uid="uid://brodikbody7k1" path="res://assets/skeleton_fighter.png" id="1_gjm0i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/States/undeadStates/UndeadSurroundState.gd" id="4_1fdv1"]
 [ext_resource type="Script" path="res://scripts/States/undeadStates/UndeadIdleState.gd" id="5_iql04"]
 [ext_resource type="Script" path="res://scripts/States/undeadStates/UndeadFollowState.gd" id="6_un20k"]
+[ext_resource type="Script" path="res://scripts/States/undeadStates/UndeadMoveState.gd" id="7_8ledc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xd3bj"]
 radius = 8.0
@@ -46,6 +47,9 @@ script = ExtResource("5_iql04")
 [node name="UndeadFollowState" type="Node" parent="UndeadStateMachine"]
 script = ExtResource("6_un20k")
 
+[node name="UndeadMoveState" type="Node" parent="UndeadStateMachine"]
+script = ExtResource("7_8ledc")
+
 [node name="Hurtbox" type="Area2D" parent="." groups=["undead"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -57,6 +61,14 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
 shape = SubResource("CircleShape2D_yut1k")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -24.0
+offset_top = -144.0
+offset_right = 48.0
+offset_bottom = -113.0
+text = "asdf"
 
 [connection signal="area_entered" from="Hurtbox" to="UndeadStateMachine/UndeadSurroundState" method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="AggroArea" to="UndeadStateMachine/UndeadFollowState" method="_on_aggro_area_body_entered"]

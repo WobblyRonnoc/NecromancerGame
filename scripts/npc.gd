@@ -19,6 +19,7 @@ var wander_time
 var idle_time
 
 var fearful = false
+var is_dead
 
 func _ready():
 	position = get_global_mouse_position()
