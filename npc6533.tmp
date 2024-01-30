@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dt27tsl0sgw23"]
+[gd_scene load_steps=18 format=3 uid="uid://dt27tsl0sgw23"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcWanderState.gd" id="5_ogquj"]
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcFearState.gd" id="6_im1vs"]
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcSurroundState.gd" id="7_wfdm4"]
-[ext_resource type="Script" path="res://scripts/States/npcStates/NpcDeadState.gd" id="8_vft7r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
 radius = 1.0
@@ -15,12 +14,12 @@ radius = 1.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wrgaa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktp8o"]
-radius = 16.0
-height = 48.0
+radius = 8.0
+height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_un8cn"]
 resource_local_to_scene = true
-radius = 216.0
+radius = 160.2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3eqs0"]
 atlas = ExtResource("2_agv36")
@@ -65,10 +64,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlxwk"]
-radius = 32.0
-height = 128.0
-
 [node name="NPC" type="CharacterBody2D" groups=["npc"]]
 script = ExtResource("1_y22kf")
 safe_distance = 700.0
@@ -97,7 +92,6 @@ shape = SubResource("CapsuleShape2D_ktp8o")
 [node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
-visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_un8cn")
 debug_color = Color(0.917647, 0.141176, 0.607843, 0.419608)
@@ -135,9 +129,6 @@ script = ExtResource("6_im1vs")
 [node name="NpcSurroundState" type="Node" parent="NpcStateMachine"]
 script = ExtResource("7_wfdm4")
 
-[node name="NpcDeadState" type="Node" parent="NpcStateMachine"]
-script = ExtResource("8_vft7r")
-
 [node name="StateLabel" type="Label" parent="."]
 offset_left = -24.0
 offset_top = -136.0
@@ -147,14 +138,6 @@ text = "STATE"
 
 [node name="IdleWanderTimer" type="Timer" parent="."]
 
-[node name="Hitbox" type="Area2D" parent="." groups=["npc"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -48)
-shape = SubResource("CapsuleShape2D_mlxwk")
-debug_color = Color(0.564706, 0.556863, 0, 0.419608)
-
 [connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcIdleState" method="_on_fear_area_body_entered"]
 [connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcWanderState" method="_on_fear_area_body_entered"]
 [connection signal="timeout" from="IdleWanderTimer" to="NpcStateMachine/NpcIdleState" method="_on_idle_wander_timer_timeout"]
-[connection signal="area_shape_entered" from="Hitbox" to="NpcStateMachine/NpcFearState" method="_on_hitbox_area_shape_entered"]

@@ -2,23 +2,19 @@ class_name PlayerCastState
 extends State
 
 var cursor
-var undead = load("res://npc.tscn")
+var undead = load("res://entities/undead.tscn")
 
-func cast(spell_id):
-	Global.wheel_ui.line.clear_points()
-	var spell_cast
-	# Check cast against spells
-	if Global.validate_spell(spell_id):
-		Global.debug2.add_property("Spell Cast", spell_cast, 0)
-			
 func enter(_last_state):
-		print(Global.spell_key)
+	Global.wheel_ui.line.clear_points()
+	if Global.validate_spell(Global.spell_key):
 		cursor = Global.cursor
-		if Global.spell_key == [4,3,2,1,0]:
-			cursor.show()
-			cursor.global_position = Global.player.global_position * Vector2(1.2,1)
-		print("Cast Success!")
-		Global.debug.add_property("Current Spell", Global.SPELL_LIST[Global.formated_spell_id()], 1)
+		cursor.show()
+		cursor.position = Global.player.global_position
+			
+	#DEBUG 
+	print(Global.spell_key)
+	print("Cast Success!")
+	Global.debug.add_property("Current Spell", Global.SPELL_LIST[Global.formated_spell_id()], 1)
 
 func exit(_new_state):
 	cursor = Global.cursor

@@ -19,24 +19,10 @@ func get_player_state() -> StringName:
 func get_npc_state(npc_id : int) -> StringName:
 	return npcs[npc_id].state_machine.CURRENT_STATE.name
 
-
-func debug_all_npc_states(): 
-	var i = 0
-	for x in npcs:
-		Global.debug2.add_property("npc %d" % i, get_npc_state(i), i+1)
-		i+=1
-
-func force_state(new_state : String, target: Node):
-	target.state_machine.CURRENT_STATE.transition.emit(new_state)
-
-# run away if fearful or player is casting stuff
-
-
 func spawn_npc(entity : PackedScene):
 	var x = entity.instantiate()
 	add_child(x,true)
 	
-
 func _process(delta):
 	Global.debug2.add_property("player state", get_player_state(), 0)
 	for child in get_children():
@@ -44,9 +30,6 @@ func _process(delta):
 			if child.position.distance_to(player.position) < child.safe_distance:
 				if child.fearful == true || get_player_state() != "PlayerIdleState":
 					child.state_machine.CURRENT_STATE.transition.emit("NpcFearState")
-				
-	debug_all_npc_states()
-	
 
 	if player:
 		player_position = player.global_position

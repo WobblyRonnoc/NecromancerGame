@@ -27,6 +27,7 @@ radius = 696.046
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_e8ulj")
+SPEED = 600.0
 
 [node name="AnalogInputViewer" parent="." instance=ExtResource("2_8w0kq")]
 visible = false

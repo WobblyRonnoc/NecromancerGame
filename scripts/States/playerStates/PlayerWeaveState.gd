@@ -3,6 +3,7 @@ extends State
 
 
 func enter(_last_state):
+	Global.spell_key = []
 	Global.player.emit_terror(true)
 	Global.wheel_ui.show()
 	Global.wheel_ui.reset_selection()

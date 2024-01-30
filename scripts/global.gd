@@ -6,7 +6,11 @@ var dev_mode = true
 @onready var wheel_ui
 @onready var cast_cursor = load("res://Casting UI/cast_cursor.tscn").instantiate()
 
+var undead_entities = []
+var npcs = []
+
 var cursor
+
 
 var debug
 var debug2 
@@ -22,7 +26,7 @@ const SPELL_LIST : Dictionary = {
 	"103" : "Rend Flesh",
 	"14023" : "Line AoE",
 	"41230" : "Sheild",
-	"43210" : "Summon Undead"
+	"30" : "Summon Undead"
 	}
 
 #UTILITY FUNCTIONS (move to seperate global later!!)
@@ -55,10 +59,21 @@ func is_trigger_pulled():
 
 func _ready():
 	#add cast cursor to the ui and Hide it
-	get_tree().get_current_scene().find_child("CanvasLayer").find_child("Control").add_child(cast_cursor,true)
-	cursor = get_tree().get_current_scene().find_child("CanvasLayer").find_child("Control").get_child(1)
+	get_tree().get_current_scene().find_child("Director").add_child(cast_cursor,true)
+	cursor = get_tree().get_current_scene().find_child("Director").get_child(1)
 	cursor.hide()
+
+
 func _process(_delta):
+	#update array of undead entities
+	if get_tree().has_group("undead"):
+		undead_entities = get_tree().get_nodes_in_group("undead")
+		
+	#update array of npcs
+	for child in get_tree().current_scene.find_child("Director").get_children():
+		if not npcs.has(child) && child.name.contains("NPC"):
+			npcs.append(child)
+
 	if Input.is_action_just_pressed("zoom_in"):
 		get_tree().get_current_scene().get_child(0).camera_zoom *= 1.05
 	if Input.is_action_just_pressed("zoom_out"):

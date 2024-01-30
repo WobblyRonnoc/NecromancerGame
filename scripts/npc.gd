@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 @export var speed = 75
 
-@export var safe_distance : float = 300.0
+@export var safe_distance : float = 150.0
 @onready var fear_area = $FearArea/CollisionShape2D
 
 @onready var state_label = $StateLabel
@@ -21,14 +21,13 @@ var idle_time
 var fearful = false
 
 func _ready():
-	#position = get_global_mouse_position()
-	
-	#for zombie:
-	position = Global.cursor.position
-	
-		
+	position = get_global_mouse_position()
 	speed = randf_range(75, 150)
 	
 func _process(delta):
+	if fearful:
+		set_modulate(Color(0.3,1,0.5,1))
+	else:
+		set_modulate(Color(1,1,1,1))
 	state_label.text = state_machine.CURRENT_STATE.name + " fearful: " + str(fearful)
 	move_and_slide()
