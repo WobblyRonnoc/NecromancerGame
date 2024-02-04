@@ -10,6 +10,7 @@ func enter(_last_state):
 func exit(_new_state):
 	Global.wheel_ui.hide()
 	Global.wheel_ui.reset_selection()
+	Global.player.right_hand.hide()
 	
 func update(_delta):
 	Global.player.raise_hand()

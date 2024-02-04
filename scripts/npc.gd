@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var fear_area = $FearArea/CollisionShape2D
 
 @onready var state_label = $StateLabel
+@onready var sprite = $Sprite
 
 
 var wander_direction
@@ -27,9 +28,9 @@ func _ready():
 	speed = randf_range(75, 150)
 	
 func _process(delta):
-	if fearful:
-		set_modulate(Color(0.3,1,0.5,1))
-	else:
-		set_modulate(Color(1,1,1,1))
+	#if fearful:
+		#set_modulate(Color(0.3,1,0.5,1))
+	#else:
+		#set_modulate(Color(0.859, 0.169, 0.055))
 	state_label.text = state_machine.CURRENT_STATE.name + " fearful: " + str(fearful)
 	move_and_slide()

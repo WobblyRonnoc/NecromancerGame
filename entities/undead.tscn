@@ -20,6 +20,7 @@ height = 176.0
 radius = 472.271
 
 [node name="Undead" type="CharacterBody2D" groups=["undead"]]
+y_sort_enabled = true
 position = Vector2(0, -16)
 script = ExtResource("1_5hd2v")
 
@@ -62,7 +63,6 @@ shape = SubResource("CapsuleShape2D_t7xom")
 
 [node name="AggroArea" type="Area2D" parent="."]
 visible = false
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
 shape = SubResource("CircleShape2D_yut1k")

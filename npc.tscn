@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dt27tsl0sgw23"]
+[gd_scene load_steps=22 format=3 uid="uid://dt27tsl0sgw23"]
 
 [ext_resource type="Script" path="res://scripts/npc.gd" id="1_y22kf"]
 [ext_resource type="Texture2D" uid="uid://dbrl8x8ga6ld1" path="res://assets/panic.png" id="2_agv36"]
@@ -8,19 +8,18 @@
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcFearState.gd" id="6_im1vs"]
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcSurroundState.gd" id="7_wfdm4"]
 [ext_resource type="Script" path="res://scripts/States/npcStates/NpcDeadState.gd" id="8_vft7r"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_j6nl0"]
-radius = 1.0
+[ext_resource type="Texture2D" uid="uid://d20oe0md6g58a" path="res://assets/Towny1.png" id="9_onfm8"]
+[ext_resource type="Texture2D" uid="uid://beq2d2e8xjrc2" path="res://assets/Towny2.png" id="10_hufos"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wrgaa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ktp8o"]
-radius = 16.0
-height = 48.0
+radius = 8.0
+height = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_un8cn"]
 resource_local_to_scene = true
-radius = 216.0
+radius = 240.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3eqs0"]
 atlas = ExtResource("2_agv36")
@@ -66,53 +65,61 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mlxwk"]
-radius = 32.0
-height = 128.0
+radius = 40.0
+height = 192.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6enf2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_onfm8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hufos")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="NPC" type="CharacterBody2D" groups=["npc"]]
 script = ExtResource("1_y22kf")
 safe_distance = 700.0
 
-[node name="shadow" type="MeshInstance2D" parent="."]
-modulate = Color(0.00392157, 0.00392157, 0.00392157, 0.254902)
-position = Vector2(-1.13687e-13, -4)
-scale = Vector2(24, 12)
-mesh = SubResource("CapsuleMesh_j6nl0")
-
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
 position = Vector2(0, -36)
 scale = Vector2(28.5, 36)
 mesh = SubResource("CapsuleMesh_wrgaa")
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="."]
+visible = false
 position = Vector2(0, -88)
 scale = Vector2(28.5, 16)
 mesh = SubResource("CapsuleMesh_wrgaa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ktp8o")
 
 [node name="FearArea" type="Area2D" parent="." groups=["fear_area"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FearArea"]
-visible = false
-position = Vector2(0, -8)
+position = Vector2(0, -72)
 shape = SubResource("CircleShape2D_un8cn")
 debug_color = Color(0.917647, 0.141176, 0.607843, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(-8, -112)
+position = Vector2(1.5, -184)
 sprite_frames = SubResource("SpriteFrames_l7v4p")
 animation = &"panic"
 autoplay = "panic"
-frame_progress = 0.592873
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(8, -112)
+position = Vector2(17.5, -184)
 scale = Vector2(-0.895912, 1)
 sprite_frames = SubResource("SpriteFrames_l7v4p")
 animation = &"panic"
@@ -149,11 +156,16 @@ text = "STATE"
 [node name="IdleWanderTimer" type="Timer" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="." groups=["npc"]]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -48)
+position = Vector2(0, -72)
 shape = SubResource("CapsuleShape2D_mlxwk")
 debug_color = Color(0.564706, 0.556863, 0, 0.419608)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -88)
+sprite_frames = SubResource("SpriteFrames_6enf2")
 
 [connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcIdleState" method="_on_fear_area_body_entered"]
 [connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcWanderState" method="_on_fear_area_body_entered"]

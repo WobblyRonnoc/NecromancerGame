@@ -27,8 +27,8 @@ func raise_hand():
 	rh_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
 	right_hand.position.x = rh_vector.x * radius
 	right_hand.position.y = rh_vector.y * radius
-	right_hand.position.clamp(right_hand.position, rh_vector * radius)
-	
+	#right_hand.position = resting_pos
+	right_hand.position.clamp(resting_pos, rh_vector * radius)
 	
 func move():
 	var x_direction = Input.get_axis("ui_left", "ui_right")

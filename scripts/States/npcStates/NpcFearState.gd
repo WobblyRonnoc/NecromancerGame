@@ -11,14 +11,16 @@ func enter(_last_state):
 	for child in npc.get_children():
 		if child.name.contains("AnimatedSprite"):
 			child.show()
-			npc.set_modulate(Color(0.463, 1, 0.561))
-
+			#npc.set_modulate(Color(0.463, 1, 0.561))
+			npc.sprite.play()
+			
 func exit(_new_state):
 	for child in npc.get_children():
 		if child.name.contains("AnimatedSprite"):
 			child.hide()
-			npc.set_modulate(Color(1,1,1,1))
-
+			#npc.set_modulate(Color(1,1,1,1))
+			npc.sprite.stop()
+			npc.sprite.frame
 func update(_delta):
 	# if too close to player or undead -> run away
 	if npc.global_position.distance_to(Global.player.global_position) < npc.safe_distance:

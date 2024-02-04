@@ -35,21 +35,12 @@ func _process(delta):
 	var state = undead_state_machine.CURRENT_STATE.name
 	label.text = str(state)
 	
-	if Input.is_action_just_pressed("right_click"):
-		toggle_hitbox()
-		if flip:
-			skew = -50
-		else:
-			skew = 50
-	if Input.is_action_just_released("right_click"):
-		toggle_hitbox()
-		skew = 0
-	
 	# FIXME: visuals altering code in bad spot
 	if velocity.x < 0:
 		sprite.set_flip_h(true)
 	elif velocity.x > 0:
 		sprite.set_flip_h(false)
+		
 func toggle_hitbox():
 	if hurtbox.is_monitorable():
 		hurtbox.set_deferred("monitorable", false)
