@@ -35,10 +35,16 @@ func _process(delta):
 	var state = undead_state_machine.CURRENT_STATE.name
 	label.text = str(state)
 	
+
 	# FIXME: visuals altering code in bad spot
 	if velocity.x < 0:
-		sprite.set_flip_h(true)
+		flip = true
 	elif velocity.x > 0:
+		flip = false
+		
+	if flip:
+		sprite.set_flip_h(true)
+	else:
 		sprite.set_flip_h(false)
 		
 func toggle_hitbox():
@@ -55,3 +61,5 @@ func toggle_hitbox():
 	else:
 		hurtbox.set_deferred("monitoring", true)
 		hurtbox.show()
+
+

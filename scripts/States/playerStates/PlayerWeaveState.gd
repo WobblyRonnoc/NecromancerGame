@@ -15,9 +15,11 @@ func exit(_new_state):
 func update(_delta):
 	Global.player.raise_hand()
 	Global.player.move()
-	Global.debug.add_property("Current Spell", Global.spell_key, 1)
 	if !Global.is_trigger_pulled():
 		if Global.validate_spell(Global.spell_key):
 			transition.emit("PlayerCastState")
 		else:
 			transition.emit("PlayerIdleState")
+
+	#DEBUG
+	Global.debug.add_property("Current Spell", Global.spell_key, 1)

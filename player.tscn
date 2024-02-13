@@ -45,7 +45,6 @@ scale = Vector2(7.5827, 7.35295)
 mesh = SubResource("CapsuleMesh_jspig")
 
 [node name="RightHand" type="MeshInstance2D" parent="."]
-visible = false
 modulate = Color(0.588235, 0.407843, 0.403922, 1)
 z_index = 1
 position = Vector2(0, -48)
@@ -108,3 +107,6 @@ monitorable = false
 position = Vector2(328, -88)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f4isr")
+
+[node name="HandOrigin" type="Marker2D" parent="."]
+position = Vector2(0, -48)
