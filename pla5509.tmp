@@ -200,11 +200,10 @@ position = Vector2(0, -80)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-9.53674e-07, -64)
-scale = Vector2(1.475, 1.475)
+scale = Vector2(1.375, 1.375)
 sprite_frames = SubResource("SpriteFrames_pewow")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.652278
 
 [node name="AnimatedHand" type="AnimatedSprite2D" parent="."]
 visible = false
