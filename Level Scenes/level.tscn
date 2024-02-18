@@ -20,7 +20,7 @@ position = Vector2(557, 315)
 script = ExtResource("3_emy0f")
 priority_override = false
 priority = 5
-zoom = Vector2(0.555, 0.555)
+zoom = Vector2(0.88, 0.88)
 follow_mode = 2
 follow_target = NodePath("../Director/Player")
 follow_parameters/target_offset = Vector2(0, -100)
@@ -41,7 +41,7 @@ inactive_update_mode = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(557, 315)
-zoom = Vector2(0.555, 0.555)
+zoom = Vector2(0.88, 0.88)
 limit_smoothed = true
 editor_draw_limits = true
 

@@ -24,11 +24,12 @@ func _physics_process(delta):
 
 func on_child_transition(new_state_name : StringName) -> void:
 	var new_state = states.get(new_state_name)
-	var last_state = states.get(CURRENT_STATE.name)
 	if new_state != null:
 		if new_state != CURRENT_STATE:
 			CURRENT_STATE.exit(new_state)
-			new_state.enter(last_state)
+			print_debug(new_state)
+			new_state.enter(CURRENT_STATE)
+			print_debug(CURRENT_STATE)
 			CURRENT_STATE = new_state
 		else:
 			push_warning("State does not exist")

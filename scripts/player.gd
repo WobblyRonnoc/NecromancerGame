@@ -6,7 +6,8 @@ extends CharacterBody2D
 @onready var hand_origin = $HandOrigin
 @onready var wheel = $AnalogInputViewer
 @onready var radius = wheel.radius / 2
-@onready var sprite = $Sprite
+@onready var sprite = $AnimatedSprite2D
+@onready var animated_hand = $AnimatedHand
 
 
 @export var SPEED = 300.0
@@ -20,13 +21,17 @@ func face_move_direction():
 	#flip the 'sprite'
 	if Input.is_action_just_pressed("ui_left"):
 		flip = true
-		sprite.scale.x = -1
+		sprite.scale.x *= -1
+		animated_hand.position.x *= -1
 	elif Input.is_action_just_pressed("ui_right"):
 		flip = false
-		sprite.scale.x = 1
+		sprite.scale.x *= 1
+		animated_hand.position.x *= 1
 
 func raise_hand():
-	right_hand.show()
+	#right_hand.show()
+	animated_hand.look_at(right_hand.global_position)
+	animated_hand.global_rotation_degrees += -90
 	
 	if flip:
 		right_hand.position.x *= -1
@@ -54,7 +59,7 @@ func move():
 func _ready():
 	Global.player = self
 	Global.wheel_ui = wheel
-
+	sprite.play("Idle")
 func _process(delta):
 	face_move_direction()
 

@@ -5,7 +5,6 @@ extends Node
 @export var CURRENT_STATE : State
 var states: Dictionary = {}
 
-
 func _ready():
 	for child in get_children():
 		if child is State:
@@ -24,11 +23,13 @@ func _physics_process(delta):
 
 func on_child_transition(new_state_name : StringName) -> void:
 	var new_state = states.get(new_state_name)
-	var last_state = states.get(CURRENT_STATE)
 	if new_state != null:
 		if new_state != CURRENT_STATE:
 			CURRENT_STATE.exit(new_state)
-			new_state.enter(last_state)
+			Global.debug2.add_property("Previous State",CURRENT_STATE.name,0)
+			#print("new: " + str(new_state.name))
+			new_state.enter(CURRENT_STATE)
+			#print("old: " +  str(CURRENT_STATE.name))
 			CURRENT_STATE = new_state
 		else:
 			push_warning("State does not exist")

@@ -164,7 +164,8 @@ shape = SubResource("CapsuleShape2D_mlxwk")
 debug_color = Color(0.564706, 0.556863, 0, 0.419608)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -88)
+position = Vector2(0, -72)
+scale = Vector2(0.91, 0.91)
 sprite_frames = SubResource("SpriteFrames_6enf2")
 
 [connection signal="body_entered" from="FearArea" to="NpcStateMachine/NpcIdleState" method="_on_fear_area_body_entered"]

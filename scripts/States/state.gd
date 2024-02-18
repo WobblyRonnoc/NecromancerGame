@@ -4,6 +4,10 @@ extends Node
 
 signal transition(new_state_name: StringName)
 
+var last_state
+var new_state
+
+
 func enter(_last_state) -> void:
 	pass
 
