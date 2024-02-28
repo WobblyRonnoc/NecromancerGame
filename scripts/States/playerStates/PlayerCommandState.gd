@@ -10,7 +10,7 @@ func update(_delta):
 		#player.right_hand.hide()
 
 func enter(_last_state):
-	Global.player.animated_hand.show()
+	#Global.player.animated_hand.show()
 	Global.player.sprite.play("UseHand")
 	
 func exit(_new_state):

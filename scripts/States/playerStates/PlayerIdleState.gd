@@ -8,14 +8,12 @@ func listen_for_casting_input():
 func enter(_last_state):
 	if Global.player:
 		Global.player.sprite.play("Idle")
-		#Global.player.emit_terror(false)
 		Global.spell_key.clear()
 		if _last_state == Global.player.state_machine.states["PlayerWeaveState"]:
 			Global.player.sprite.play_backwards("UseHand")
-			Global.player.animated_hand.hide()
 		if _last_state == Global.player.state_machine.states["PlayerCastState"]:
 			Global.player.sprite.play_backwards("UseHand")
-			Global.player.animated_hand.hide()
+
 
 
 

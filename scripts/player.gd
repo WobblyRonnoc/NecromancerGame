@@ -13,31 +13,16 @@ extends CharacterBody2D
 @export var SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-var flip = false
-
 var gravity = 0
 
 func face_move_direction():
 	#flip the 'sprite'
-	if Input.is_action_just_pressed("ui_left"):
-		flip = true
-		sprite.scale.x *= -1
-		animated_hand.position.x *= -1
-	elif Input.is_action_just_pressed("ui_right"):
-		flip = false
-		sprite.scale.x *= 1
-		animated_hand.position.x *= 1
+	pass
 
 func raise_hand():
-	#right_hand.show()
-	animated_hand.look_at(right_hand.global_position)
-	animated_hand.global_rotation_degrees += -90
+	right_hand.show()
+
 	
-	if flip:
-		right_hand.position.x *= -1
-	else:
-		right_hand.position.x = abs(right_hand.position.x)
-		
 	var rh_vector = Input.get_vector("rs_left","rs_right","rs_up","rs_down",-1.0)
 	right_hand.position = hand_origin.position + rh_vector * radius
 
