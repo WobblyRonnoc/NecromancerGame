@@ -1,4 +1,4 @@
-﻿# NecromancerGame
+﻿# What is this?
 ![Demo](https://github.com/WobblyRonnoc/NecromancerGame/blob/ai-system/Squad.gif)
 
 A prototype for a game about being a necromancer. 
